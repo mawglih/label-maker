@@ -1,16 +1,26 @@
-import React, { Component } from 'react'
-import ShippingLabelMaker from '../../../features/shipping-label-maker';
-
+import React, { Component } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import './addressForm.css';
 class AddressForm extends Component {
-  state = {
-    name: '',
-    street: '',
-    city: '',
-    area: '',
-    zip: '',
-  };
+  constructor(props) {
+    super(props);
+    console.log(this.props.nextForm);
+    this.state = {
+      name: '',
+      street: '',
+      city: '',
+      area: '',
+      zip: '',
+    };
+  }
+
+
+  componentDidMount() {
+    console.log(this.props.nextFrom);
+  }
 
   handleChange = e => {
+    // console.log(e.target.value);
     this.setState({[e.target.name]: e.target.value});
   }
   handleSubmit = e => {
@@ -22,18 +32,34 @@ class AddressForm extends Component {
       area: this.state.area,
       zip: this.state.zip,
     }
-    console.log(newAddress);
-  }
+    console.log(this.props.nextFrom);
+    this.props.onFormSubmit(newAddress);
+    this.handleNext(this.props.nextFrom);
+  };
+
+  handleNext = (el) => {
+    const { history } = this.props;
+    console.log("next: ", el);
+    history.push(el);
+  };
+
   
   render() {
+    const {
+      nextForm,
+      labelName,
+    } = this.props;
     return (
-      <div>
+      <div className="container">
+        <h2>{labelName}</h2>
         <form
-          onSubmit={this.handleSubmit}
+          onSubmit={(e) => this.handleSubmit(e)}
+          className="form"
         >
             <label>
               {'Name'}
-                <input
+            </label>
+              <input
                 type="text"
                 name="name"
                 className="input"
@@ -42,10 +68,10 @@ class AddressForm extends Component {
                 onChange={this.handleChange}
                 required
               />
-            </label>
             <label>
               {'Street'}
-                <input
+            </label>
+              <input
                 type="text"
                 name="street"
                 className="input"
@@ -54,10 +80,10 @@ class AddressForm extends Component {
                 onChange={this.handleChange}
                 required
               />
-            </label>
             <label>
               {'City'}
-                <input
+            </label>
+              <input
                 type="text"
                 name="city"
                 className="input"
@@ -66,10 +92,10 @@ class AddressForm extends Component {
                 onChange={this.handleChange}
                 required
               />
-            </label>
             <label>
               {'State'}
-                <input
+            </label>
+              <input
                 type="text"
                 name="area"
                 className="input"
@@ -77,10 +103,10 @@ class AddressForm extends Component {
                 value={this.state.area}
                 onChange={this.handleChange}
               />
-            </label>
             <label>
               {'Zip'}
-                <input
+            </label>
+              <input
                 type="text"
                 name="zip"
                 className="input"
@@ -89,16 +115,19 @@ class AddressForm extends Component {
                 onChange={this.handleChange}
                 required
               />
-            </label>
-            <button
-              type="submit"
-            >
+              {/* <Link to={nextForm}> */}
+              <button
+                type="submit"
+                className="button"
+              >
               {'Next'}
-            </button>
+      
+              </button>
+              {/* </Link> */}
           </form>
       </div>
     );
   }
 }
 
-export default AddressForm;
+export default withRouter(AddressForm);
