@@ -13,6 +13,7 @@ export default function ShipFrom({
         nextFrom="/options"
         onFormSubmit={onFormSubmit}
         handleNext={handleNext}
+        step={2}
       />
     </div>
   )

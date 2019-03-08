@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import ShippingLabelMaker from './features/shipping-label-maker';
+import Header from './core/components/header';
 import './App.css';
 
 class App extends Component {
@@ -8,7 +9,10 @@ class App extends Component {
     return (
       <div className="App">
         <BrowserRouter>
-          <ShippingLabelMaker />
+          <Fragment>
+            <Header />
+            <ShippingLabelMaker />
+          </Fragment>
         </BrowserRouter>
         
       </div>

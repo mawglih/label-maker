@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import './addressForm.css';
+
 class AddressForm extends Component {
   constructor(props) {
     super(props);
@@ -14,17 +15,17 @@ class AddressForm extends Component {
     };
   }
 
-
-  componentDidMount() {
-    console.log(this.props.nextFrom);
-  }
-
   handleChange = e => {
-    // console.log(e.target.value);
     this.setState({[e.target.name]: e.target.value});
   }
   handleSubmit = e => {
     e.preventDefault();
+    const {
+      history,
+      nextFrom,
+      onFormSubmit,
+      step,
+    } = this.props;
     const newAddress = {
       name: this.state.name,
       street: this.state.street,
@@ -32,21 +33,21 @@ class AddressForm extends Component {
       area: this.state.area,
       zip: this.state.zip,
     }
-    console.log(this.props.nextFrom);
-    this.props.onFormSubmit(newAddress);
-    this.handleNext(this.props.nextFrom);
+    console.log('step in addresform: ', step);
+    onFormSubmit(newAddress, step);
+    history.push(nextFrom);
+    // this.handleNext(this.props.nextFrom);
   };
 
-  handleNext = (el) => {
-    const { history } = this.props;
-    console.log("next: ", el);
-    history.push(el);
-  };
+  // handleNext = (el) => {
+  //   const { history } = this.props;
+  //   console.log("next: ", el);
+  //   history.push(el);
+  // };
 
   
   render() {
     const {
-      nextForm,
       labelName,
     } = this.props;
     return (
@@ -115,7 +116,6 @@ class AddressForm extends Component {
                 onChange={this.handleChange}
                 required
               />
-              {/* <Link to={nextForm}> */}
               <button
                 type="submit"
                 className="button"
@@ -123,7 +123,6 @@ class AddressForm extends Component {
               {'Next'}
       
               </button>
-              {/* </Link> */}
           </form>
       </div>
     );

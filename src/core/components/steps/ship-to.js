@@ -13,6 +13,7 @@ export default function ShipTo({
         nextFrom="/receiver"
         onFormSubmit={onFormSubmit}
         handleNext={handleNext}
+        step={1}
       />
     </div>
   )
