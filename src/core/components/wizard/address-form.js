@@ -33,18 +33,9 @@ class AddressForm extends Component {
       area: this.state.area,
       zip: this.state.zip,
     }
-    console.log('step in addresform: ', step);
     onFormSubmit(newAddress, step);
     history.push(nextFrom);
-    // this.handleNext(this.props.nextFrom);
   };
-
-  // handleNext = (el) => {
-  //   const { history } = this.props;
-  //   console.log("next: ", el);
-  //   history.push(el);
-  // };
-
   
   render() {
     const {

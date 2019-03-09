@@ -1,18 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import SelectForm from '../wizard/options-form';
 
-const GetWeight = () => {
+const GetWeight = ({
+  onFormSubmit,
+}) => {
   return (
     <div>
-      <h2>Weight</h2>
-      <form>
-        <input
-          type="number"
-        />
-      </form>
-      <Link to="/confirm">
-        <button>Next</button>
-      </Link>
+      <SelectForm
+        optionName="weight"
+        onFormSubmit={onFormSubmit}
+        labelName="Enter weight"
+        step={4}
+        nextFrom="/confirm"
+      />
     </div>
   )
 }

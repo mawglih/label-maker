@@ -1,18 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import SelectForm from '../wizard/options-form';
 
-const GetShippingOptions = () => {
+// const Options = [...Array(10)].map((item, ind) => ind + 1);
+
+const GetShippingOptions = ({
+  onFormSubmit,
+}) => {
   return (
     <div>
-      <h2>Options</h2>
-      <form>
-        <input
-          type="number"
-        />
-        <Link to="/weight">
-          <button>Next</button>
-        </Link>
-      </form>
+      <SelectForm
+        optionName="shipping"
+        onFormSubmit={onFormSubmit}
+        labelName="Enter shipping option"
+        step={3}
+        nextFrom="/weight"
+      />
     </div>
   )
 }

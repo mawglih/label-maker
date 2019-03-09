@@ -5,7 +5,6 @@ import ShipFrom from '../../core/components/steps/ship-from';
 import GetShippingOptions from '../../core/components/steps/get-shipping-option';
 import GetWeight from '../../core/components/steps/get-weight';
 import Confirm from '../../core/components/steps/confirm';
-import GoogleAuth from '../../core/components/google-auth';
 
 class ShippingLabelMaker extends Component {
   state = {
@@ -13,14 +12,9 @@ class ShippingLabelMaker extends Component {
     toAddress: {},
     weight: 0,
     shippingOptions: 1,
-    signIn: null,
   };
   
-  componentDidMount() {
-    this.setState({
-      signIn: GoogleAuth.isSignedIn
-    }, console.log('sign in status is: ', this.state.signIn));
-  }
+
   onSubmit = (obj, step) => {
     switch(step) {
       case 1:
@@ -59,20 +53,22 @@ class ShippingLabelMaker extends Component {
           <Route
             exact
             path='/options'
-            component={GetShippingOptions}
             render={(props) => <GetShippingOptions {...props} onFormSubmit={this.onSubmit} />}
           />
           <Route
             exact
             path='/weight'
-            component={GetWeight}
             render={(props) => <GetWeight {...props} onFormSubmit={this.onSubmit} />}
           />
           <Route
             exact
             path='/confirm'
-            component={Confirm}
-            // render={(props) => <ShipFrom {...props} onFormSubmit={this.onSubmit} />}
+            render={(props) => <Confirm {...props} 
+              from={this.state.fromAddress}
+              to={this.state.toAddress}
+              weight={this.state.weight}
+              options={this.state.shippingOptions}
+            />}
           />
           <Route
             exact
